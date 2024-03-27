@@ -42,11 +42,14 @@ for (const combo in CODE) {
  * @returns {Boolean} true iff any combo is found
  */
 function defaultCondition(hand, deck) {
+  const anywhere = [...hand, ...deck];
+
   for (const combo of this.combos) {
     const handOK = hand.contains(combo.hand);
     const deckOK = deck.contains(combo.deck);
+    const anyOK = anywhere.contains(combo.every);
 
-    if (handOK && deckOK) return true;
+    if (handOK && deckOK && anyOK) return true;
   }
 
   return false;
