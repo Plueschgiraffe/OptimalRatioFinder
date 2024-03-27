@@ -1,83 +1,18 @@
 import { CARD, DATA } from './cards.js';
 
 export const COMBO = {
-  DEEP_BEYOND: 'DEEP_BEYOND',
+  DOUBLE_DEEP: 'DOUBLE_DEEP',
   HANDTRAP: 'HANDTRAP',
 };
 
 export const CODE = {
-  [COMBO.FULL_GHOTI_SETUP]: {
-    id: COMBO.FULL_GHOTI_SETUP,
-    name: 'Full Ghoti Setup (2x Deep Beyond)',
+  [COMBO.DOUBLE_DEEP]: {
+    id: COMBO.DOUBLE_DEEP,
+    name: 'Double Deep Beyond',
 
-    // set min ratios to 1 for: Shif, Paces, Zep, Snopios, Psiics
-    combos: [
-      { hand: [CARD.PIRIMAP, CARD.ANGLER], deck: [CARD.PSIICS] },
-      { hand: [CARD.PIRIMAP, CARD.RFUSION], deck: [CARD.PSIICS] },
-      { hand: [CARD.PIRIMAP, CARD.IFUSION], deck: [CARD.PSIICS] },
-      { hand: [CARD.PIRIMAP, CARD.SAKITAMA], deck: [CARD.PSIICS] },
-      { hand: [CARD.PIRIMAP, CARD.SHTHANA], deck: [CARD.PSIICS] },
-      { hand: [CARD.PIRIMAP, CARD.ABYSS], deck: [CARD.ANGLER, CARD.PSIICS] },
-
-      { hand: [CARD.TUNA, CARD.ANGLER], deck: [CARD.PSIICS] },
-      { hand: [CARD.TUNA, CARD.RFUSION], deck: [CARD.PSIICS] },
-      { hand: [CARD.TUNA, CARD.IFUSION], deck: [CARD.PSIICS] },
-      { hand: [CARD.TUNA, CARD.SAKITAMA], deck: [CARD.PSIICS] },
-      { hand: [CARD.TUNA, CARD.SHTHANA], deck: [CARD.PSIICS] },
-      { hand: [CARD.TUNA, CARD.ABYSS], deck: [CARD.ANGLER, CARD.PSIICS] },
-
-      { hand: [CARD.SHIF, CARD.ANGLER], deck: [CARD.PSIICS] },
-      { hand: [CARD.SHIF, CARD.RFUSION], deck: [CARD.PSIICS] },
-      { hand: [CARD.SHIF, CARD.IFUSION], deck: [CARD.PSIICS] },
-      { hand: [CARD.SHIF, CARD.SAKITAMA], deck: [CARD.PSIICS] },
-      { hand: [CARD.SHIF, CARD.SHTHANA], deck: [CARD.PSIICS] },
-      { hand: [CARD.SHIF, CARD.ABYSS], deck: [CARD.ANGLER, CARD.PSIICS] },
-
-      { hand: [CARD.PACES, CARD.ANGLER], deck: [CARD.PSIICS] },
-      { hand: [CARD.PACES, CARD.RFUSION], deck: [CARD.PSIICS] },
-      { hand: [CARD.PACES, CARD.IFUSION], deck: [CARD.PSIICS] },
-      { hand: [CARD.PACES, CARD.SAKITAMA], deck: [CARD.PSIICS] },
-      { hand: [CARD.PACES, CARD.SHTHANA], deck: [CARD.PSIICS] },
-      { hand: [CARD.PACES, CARD.ABYSS], deck: [CARD.ANGLER, CARD.PSIICS] },
-
-      {
-        hand: [CARD.LIFELESS, CARD.ABYSS],
-        deck: [CARD.SHIF, CARD.ANGLER, CARD.PSIICS],
-      },
-      {
-        hand: [CARD.LIFELESS, CARD.ABYSS],
-        deck: [CARD.PACES, CARD.ANGLER, CARD.PSIICS],
-      },
-
-      {
-        hand: [CARD.SHTHANA, CARD.ABYSS],
-        deck: [CARD.SHIF, CARD.LIFELESS, CARD.PSIICS],
-      },
-      {
-        hand: [CARD.SHTHANA, CARD.ABYSS],
-        deck: [CARD.PACES, CARD.LIFELESS, CARD.PSIICS],
-      },
-
-      { hand: [CARD.HARPOONER, CARD.KEAF, CARD.PACES], deck: [CARD.PSIICS] },
-      { hand: [CARD.HARPOONER, CARD.KEAF, CARD.SHIF], deck: [CARD.PSIICS] },
-
-      {
-        hand: [CARD.MERMAID, CARD.SHIF],
-        deck: [CARD.ANGLER, CARD.ABYSS, CARD.PSIICS],
-      },
-      {
-        hand: [CARD.MERMAID, CARD.PACES],
-        deck: [CARD.ANGLER, CARD.ABYSS, CARD.PSIICS],
-      },
-      {
-        hand: [CARD.MERMAID, CARD.RFUSION],
-        deck: [CARD.LIFELESS, CARD.ABYSS, CARD.PSIICS],
-      },
-      {
-        hand: [CARD.MERMAID, CARD.IFUSION],
-        deck: [CARD.LIFELESS, CARD.ABYSS, CARD.PSIICS],
-      },
-    ],
+    // TODO: fill this in according to spreadsheet
+    // https://docs.google.com/spreadsheets/d/1D-b62pewYGp2SbrpFllLPX7kV_Pg5v6nY2WtL8KPnTw/edit#gid=0
+    combos: [],
 
     condition: defaultCondition,
   },
@@ -86,38 +21,8 @@ export const CODE = {
     id: COMBO.HANDTRAP,
     name: 'At Least 2 Usable Handtraps',
 
-    // currently considers: Ash, Imperm, Veiler, Nibiru, Crow, Belle, Droll
-    combos: [
-      { hand: [CARD.ASH, CARD.IMPERM], deck: [] },
-      { hand: [CARD.ASH, CARD.VEILER], deck: [] },
-      { hand: [CARD.ASH, CARD.NIBIRU], deck: [] },
-      { hand: [CARD.ASH, CARD.CROW], deck: [] },
-      { hand: [CARD.ASH, CARD.BELLE], deck: [] },
-      { hand: [CARD.ASH, CARD.DROLL], deck: [] },
-
-      { hand: [CARD.IMPERM, CARD.IMPERM], deck: [] },
-      { hand: [CARD.IMPERM, CARD.VEILER], deck: [] },
-      { hand: [CARD.IMPERM, CARD.NIBIRU], deck: [] },
-      { hand: [CARD.IMPERM, CARD.CROW], deck: [] },
-      { hand: [CARD.IMPERM, CARD.BELLE], deck: [] },
-      { hand: [CARD.IMPERM, CARD.DROLL], deck: [] },
-
-      { hand: [CARD.VEILER, CARD.VEILER], deck: [] },
-      { hand: [CARD.VEILER, CARD.NIBIRU], deck: [] },
-      { hand: [CARD.VEILER, CARD.CROW], deck: [] },
-      { hand: [CARD.VEILER, CARD.BELLE], deck: [] },
-      { hand: [CARD.VEILER, CARD.DROLL], deck: [] },
-
-      { hand: [CARD.NIBIRU, CARD.CROW], deck: [] },
-      { hand: [CARD.NIBIRU, CARD.BELLE], deck: [] },
-      { hand: [CARD.NIBIRU, CARD.DROLL], deck: [] },
-
-      { hand: [CARD.CROW, CARD.CROW], deck: [] },
-      { hand: [CARD.CROW, CARD.BELLE], deck: [] },
-      { hand: [CARD.CROW, CARD.DROLL], deck: [] },
-
-      { hand: [CARD.BELLE, CARD.DROLL], deck: [] },
-    ],
+    // TODO: make spreadsheet and fill this in
+    combos: [],
 
     condition: defaultCondition,
   },

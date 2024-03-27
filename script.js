@@ -8,18 +8,46 @@ import { COMBO, CODE } from './combos.js';
  *      should be same length as cardpool and in the same order
  */
 const cardpool = [
+  // Ghoti Engine
   CARD.SHIF,
   CARD.PACES,
-  CARD.ANGLER,
+  CARD.ZEP,
+  CARD.KEAF,
+  CARD.IXEEP,
+  CARD.SNOPIOS,
   CARD.PSIICS,
+  CARD.DEPTHS,
+
+  // White Engine
+  CARD.SARDINE,
+  CARD.SUNFISH,
+  CARD.REINCARNATION,
+  CARD.MIRROR,
+
+  // Good Fish Cards
+  CARD.ANGLER,
+  CARD.LIFELESS,
+  CARD.MERMAID,
+  CARD.ABYSS,
+  CARD.HARPOONER,
+
+  // Tech Choices
   CARD.RFUSION,
-  CARD.IFUSION,
-  CARD.ASH,
+  CARD.SHTHANA,
+  CARD.SAKITAMA,
+  CARD.PIRIMAP,
+  CARD.GOLDSARC,
+
+  // Handtraps
   CARD.IMPERM,
   CARD.VEILER,
+  CARD.CROW,
+  CARD.ASH,
   CARD.NIBIRU,
+  CARD.BELLE,
+  CARD.DROLL,
 ];
-const initialRatios = [3, 3, 3, 2, 3, 1, 1, 3, 3, 0];
+const initialRatios = Array(cardpool.length).fill(2); // start with legal ratios
 
 /**
  * @param {Object} minRatios custom minimum for certain ratios
@@ -38,8 +66,8 @@ const maxRatios = {
  * @param {Intger} minDeckSize minimum number of cards in a deck
  * @param {Intger} maxDeckSize maximum number of cards in a deck
  */
-const minDeckSize = 20;
-const maxDeckSize = 30;
+const minDeckSize = 40;
+const maxDeckSize = 60;
 
 /**
  * @param {Integer} handSize number of cards in a hand
@@ -62,8 +90,8 @@ const searchSteps = generateSteps(cardpool.length, searchDepth);
  * @param {Array<COMBO>} combosToOptimize list of combos to optimize
  * @param {Object} comboWeights weights of the combos, should add to 100
  */
-const combosToOptimize = [COMBO.HANDTRAP];
-const comboWeights = { [COMBO.HANDTRAP]: 100 };
+const combosToOptimize = [COMBO.DOUBLE_DEEP, COMBO.HANDTRAP];
+const comboWeights = { [COMBO.DOUBLE_DEEP]: 60, [COMBO.HANDTRAP]: 40 };
 
 /**
  * Adds given array and array the function
@@ -294,6 +322,7 @@ function ratiosAreValid(ratios) {
 }
 
 /* -------------------------- TESTING -------------------------- */
+/*
 let ratios = improveRatios(initialRatios);
 console.log(ratios);
 
@@ -301,3 +330,4 @@ for (let i = 0; i < numOfSearches; i++) {
   ratios = improveRatios(ratios);
   console.log(ratios);
 }
+*/

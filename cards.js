@@ -43,6 +43,14 @@ export const CARD = {
   SAKITAMA: 'SAKITAMA',
   LIFELESS: 'LIFELESS',
   SHTHANA: 'SHTHANA',
+
+  // TODO: add data for these cards
+  SARDINE: 'SARDINE',
+  SUNFISH: 'SUNFISH',
+  REINCARNATION: 'REINCARNATION',
+  MIRROR: 'MIRROR',
+  DUSKWALKER: 'DUSKWALKER',
+  SUPAY: 'SUPAY',
 };
 
 export const DATA = {
