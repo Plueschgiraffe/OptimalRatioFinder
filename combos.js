@@ -569,7 +569,7 @@ function defaultCondition(hand, deck) {
   for (const combo of this.combos) {
     const handOK = hand.contains(combo.hand);
     const deckOK = deck.contains(combo.deck);
-    const anyOK = anywhere.contains(combo.every);
+    const anyOK = anywhere.contains(combo.anywhere);
 
     if (handOK && deckOK && anyOK) return true;
   }

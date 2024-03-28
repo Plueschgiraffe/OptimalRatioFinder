@@ -74,7 +74,7 @@ const maxDeckSize = 60;
  * @param {Integer} handsToDraw number of hands to check
  */
 const handSize = 5;
-const handsToDraw = 100; // <= 50000, good start: 1000
+const handsToDraw = 100; // <= 50000, good start: 100
 
 /**
  * @param {Integer} numOfSearches number of searches, each one gives new ratios
@@ -228,22 +228,6 @@ function targetSum(ratios) {
 }
 
 /**
- * Computes a score between 0 and 10k of a deck with given ratios. The higher
- * this number the more combos will be met with a higher chance. This number
- * however is for output purposes only, since it uses division and Math.round()
- * to produce a user friendly number. In code use targetSum() for calculations.
- * @param {Array<Integer>} ratios to use for calculation
- * @returns {Integer} normalised score, higher values mean higher optimisation
- */
-function deckScore(ratios) {
-  let score = 100 * targetSum(ratios);
-  score /= handsToDraw;
-  score /= combosToOptimize.length;
-
-  return Math.round(score);
-}
-
-/**
  * Finds the best possible step from given ratio position to take
  * in order to achive maximum increase in sum of traget functions.
  * @param {Array<Integer>} ratios the current position
@@ -321,13 +305,120 @@ function ratiosAreValid(ratios) {
   return true;
 }
 
-/* -------------------------- TESTING -------------------------- */
-/*
-let ratios = improveRatios(initialRatios);
-console.log(ratios);
+/**
+ * Computes a score between 0 and 10k of a deck with given ratios. The higher
+ * this number the more combos will be met with a higher chance. This number
+ * however is for output purposes only, since it uses division and Math.round()
+ * to produce a user friendly number. In code use targetSum() for calculations.
+ * @param {Array<Integer>} ratios to use for calculation
+ * @returns {Integer} normalised score, higher values mean higher optimisation
+ */
+function deckScore(ratios) {
+  let score = 100 * targetSum(ratios);
+  score /= handsToDraw;
+  score /= combosToOptimize.length;
 
-for (let i = 0; i < numOfSearches; i++) {
-  ratios = improveRatios(ratios);
-  console.log(ratios);
+  return Math.round(score);
 }
-*/
+
+/**
+ * Outputs a log message containing all information about set constrains.
+ */
+function outputConsrains() {
+  let message = 'CONSTRAINS: | ';
+
+  // basic information (decksize, handsize, precision, search depth)
+  message += minDeckSize + ' <= decksize <= ' + maxDeckSize + ' | ';
+  message += 'handsize: ' + handSize + ' | ';
+  message += 'precision: ' + handsToDraw + ' | ';
+  message += 'search depth: ' + searchDepth + ' | ';
+
+  // custom minimum ratio information
+  const minKeys = Object.keys(minRatios);
+  if (minKeys.length > 1) {
+    message += '\n\n' + 'MIN RATIOS: | ';
+    for (const key of minKeys) {
+      if (key == 'default') continue;
+      message += DATA[key].name + ': ' + minRatios[key] + ' | ';
+    }
+  }
+
+  // custom maximum ratio information
+  const maxKeys = Object.keys(maxRatios);
+  if (maxKeys.length > 1) {
+    message += '\n\n' + 'MAX RATIOS: | ';
+    for (const key of maxKeys) {
+      if (key == 'default') continue;
+      message += DATA[key].name + ': ' + maxRatios[key] + ' | ';
+    }
+  }
+
+  console.log(message);
+  console.log('');
+}
+
+/**
+ * Outputs a log message containing all information about given ratios.
+ * @param {Integer} logNum number of output log
+ * @param {Array<Integer>} ratios to output information about
+ */
+function outputInformation(logNum, ratios) {
+  const prob = (goodHands, allHands) =>
+    (100 * (goodHands / allHands)).toFixed(1) + ' %';
+
+  // basic information (itteration, decksize, deckscore)
+  let message = 'ITTERATION ' + logNum + ': | ' + ratios + ' | ';
+  message += 'decksize: ' + ratios.sum() + ' | ';
+  message += 'deckscore: ' + deckScore(ratios) + ' | ';
+
+  // combo probability information
+  for (const combo of combosToOptimize) {
+    message +=
+      CODE[combo].name +
+      '(' +
+      comboWeights[combo] +
+      '): ' +
+      prob(target(ratios, combo), handsToDraw) +
+      ' | ';
+  }
+
+  console.log(message);
+}
+
+/**
+ * Outputs a graphical decklist from given cards.
+ * @param {Array<CARD>} cards to output
+ */
+function outputGraphic(cards) {
+  const grid = document.createElement('div');
+  grid.classList.add('grid');
+
+  for (const card of cards) {
+    const image = document.createElement('img');
+    image.src = 'img/' + card + '.jpg';
+    grid.appendChild(image);
+  }
+
+  document.body.appendChild(grid);
+}
+
+/**
+ * This function runs the actuall algorithm. Call to start.
+ */
+function itterateRatios() {
+  // cardpool and constrains
+  outputGraphic(cardpool);
+  outputConsrains();
+
+  // improve ratios
+  let ratios = initialRatios;
+  for (let i = 0; i < numOfSearches; i++) {
+    outputInformation(initialRatios);
+    outputGraphic(deckFromRatios(initialRatios));
+    ratios = improveRatios(ratios);
+  }
+
+  // final ratios
+  outputInformation(ratios);
+  outputGraphic(deckFromRatios(ratios));
+}
