@@ -30,13 +30,13 @@ const cardpool = [
   CARD.MERMAID,
   CARD.ABYSS,
   CARD.HARPOONER,
+  CARD.TUNA,
 
   // Tech Choices
   CARD.RFUSION,
   CARD.SHTHANA,
   CARD.SAKITAMA,
   CARD.PIRIMAP,
-  CARD.GOLDSARC,
 
   // Handtraps
   CARD.IMPERM,
