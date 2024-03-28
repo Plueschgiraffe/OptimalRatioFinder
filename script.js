@@ -55,11 +55,9 @@ const initialRatios = Array(cardpool.length).fill(2); // start with legal ratios
  */
 const minRatios = {
   default: 0,
-  [CARD.PSIICS]: 1,
 };
 const maxRatios = {
   default: 3,
-  [CARD.IFUSION]: 1,
 };
 
 /**
@@ -74,14 +72,14 @@ const maxDeckSize = 60;
  * @param {Integer} handsToDraw number of hands to check
  */
 const handSize = 5;
-const handsToDraw = 100; // <= 50000, good start: 100
+const handsToDraw = 1; // <= 50000, good start: 100
 
 /**
  * @param {Integer} numOfSearches number of searches, each one gives new ratios
  * @param {Integer} searchDepth number of cards that can be changed per search
  */
 const numOfSearches = 10;
-const searchDepth = 3; // <= deckpool.length, good start: 3
+const searchDepth = 1; // <= deckpool.length, good start: 3
 
 // pre generate all possible search steps
 const searchSteps = generateSteps(cardpool.length, searchDepth);
@@ -405,7 +403,8 @@ function outputGraphic(cards) {
 /**
  * This function runs the actuall algorithm. Call to start.
  */
-function itterateRatios() {
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+async function itterateRatios() {
   // cardpool and constrains
   outputGraphic(cardpool);
   outputConsrains();
@@ -413,12 +412,17 @@ function itterateRatios() {
   // improve ratios
   let ratios = initialRatios;
   for (let i = 0; i < numOfSearches; i++) {
-    outputInformation(initialRatios);
+    outputInformation(i, initialRatios);
     outputGraphic(deckFromRatios(initialRatios));
+
+    // small to delay for graphics to catch up
+    await delay(100);
     ratios = improveRatios(ratios);
   }
 
   // final ratios
-  outputInformation(ratios);
+  outputInformation(numOfSearches, ratios);
   outputGraphic(deckFromRatios(ratios));
 }
+
+itterateRatios();
