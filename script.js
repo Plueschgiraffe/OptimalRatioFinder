@@ -47,7 +47,13 @@ const cardpool = [
   CARD.BELLE,
   CARD.DROLL,
 ];
-const initialRatios = Array(cardpool.length).fill(2); // start with legal ratios
+const initialRatios = [
+  1, 2, 1, 0, 2, 1, 2, 0, 2, 1, 1, 0, 1, 1, 3, 3, 0, 2, 3, 1, 0, 3, 2, 2, 3, 2,
+  3, 1, 0,
+]; // start with legal ratios
+
+// 2,3,1,0,1,1,2,0,3,3,3,0,3,1,3,3,0,3,3,3,0,2,0,0,0,0,0,0,0 [100:0]
+// 1,2,1,0,2,1,2,0,2,1,1,0,1,1,3,3,0,2,3,1,0,3,2,2,3,2,3,1,0 [60:40]
 
 /**
  * @param {Object} minRatios custom minimum for certain ratios
@@ -72,14 +78,14 @@ const maxDeckSize = 60;
  * @param {Integer} handsToDraw number of hands to check
  */
 const handSize = 5;
-const handsToDraw = 1; // <= 50000, good start: 100
+const handsToDraw = 1000; // <= 50000, good start: 100
 
 /**
  * @param {Integer} numOfSearches number of searches, each one gives new ratios
  * @param {Integer} searchDepth number of cards that can be changed per search
  */
-const numOfSearches = 10;
-const searchDepth = 1; // <= deckpool.length, good start: 3
+const numOfSearches = 50;
+const searchDepth = 3; // <= deckpool.length, good start: 3
 
 // pre generate all possible search steps
 const searchSteps = generateSteps(cardpool.length, searchDepth);
@@ -314,7 +320,7 @@ function ratiosAreValid(ratios) {
 function deckScore(ratios) {
   let score = 100 * targetSum(ratios);
   score /= handsToDraw;
-  score /= combosToOptimize.length;
+  // score /= combosToOptimize.length;
 
   return Math.round(score);
 }
@@ -409,11 +415,14 @@ async function itterateRatios() {
   outputGraphic(cardpool);
   outputConsrains();
 
+  // small to delay for graphics to catch up
+  await delay(100);
+
   // improve ratios
   let ratios = initialRatios;
   for (let i = 0; i < numOfSearches; i++) {
-    outputInformation(i, initialRatios);
-    outputGraphic(deckFromRatios(initialRatios));
+    outputInformation(i, ratios);
+    outputGraphic(deckFromRatios(ratios));
 
     // small to delay for graphics to catch up
     await delay(100);
